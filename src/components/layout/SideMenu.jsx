@@ -32,7 +32,8 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SIDE_MENU_DATA } from "../../Utils/data.js";
-import { IoIosArrowBack } from "react-icons/io";
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
+import Vector from '../../assets/images/Vector.png'
 
 export default function SideMenu() {
   const location = useLocation();
@@ -40,27 +41,26 @@ export default function SideMenu() {
 
   return (
     <div
-      className={`h-screen fixed top-0 left-0 bg-white border-r p-4 z-50
+      className={`h-screen fixed top-0 left-0 bg-white border-r border-[#0000003D] p-4 z-50
       transition-all duration-300
-      ${open ? "w-[240px]" : "w-[70px]"}`}
+      ${open ? "w-[255px]" : "w-[90px]"}`}
     >
       {/* Collapse Button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="absolute -right-3 top-20 bg-white border rounded-full p-1 shadow"
-      >
-        <IoIosArrowBack
-          className={`text-lg transition-transform duration-300
-          ${open ? "" : "rotate-180"}`}
-        />
-      </button>
+
 
       {/* Logo / Title */}
-      <div className="flex items-center gap-3 px-2 mb-6">
-        <div className="bg-primary text-white h-10 w-10 flex items-center justify-center rounded-md">
-          SD
-        </div>
-        {open && <h2 className="text-xl font-semibold">Quotation</h2>}
+      <div className="flex items-center gap-3 px-2 mb-6 h-[68px] border-b border-[#0000003D] ">
+        <img src={Vector} alt="" className="" />
+        {open && <h2 className="text-xl font-semibold">SD Quotation</h2>}
+        <button
+          onClick={() => setOpen(!open)}
+          className="absolute right-[18px] top-10 bg-[#FBFAFA] border border-[#21212114] rounded-[75%] p-1 shadow w-6 h-6"
+        >
+          <MdOutlineKeyboardDoubleArrowLeft
+            className={`text-[15px] transition-transform duration-300
+          ${open ? "" : "rotate-180"}`}
+          />
+        </button>
       </div>
 
       {/* MENU ITEMS */}
