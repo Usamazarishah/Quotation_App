@@ -26,12 +26,12 @@ export const SIDE_MENU_DATA = [
         id: "04",
         label: "Templates",
         icon:  HiOutlineTemplate ,
-        path: "admin-templates",
+        path: "/admin-templates",
     }, {
         id: "05",
         label: "User Management",
         icon: LuUserPlus ,
-        path: "admin-user",
+        path: "/admin-user",
     },
 
 ];
