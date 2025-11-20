@@ -17,13 +17,13 @@ import PriceSummary from '../../components/createQuatation/PriceSummary';
 
 export default function Quotation() {
     const [open, setOpen] = useState(true);
-    const [products] = useState([
-        { id: '01', name: 'Gas torch', quantity: '60pcs', unitPrice: '40.00$', discount: '6%', tax: '2%' },
-        { id: '02', name: 'Scraper\'s', quantity: '40pcs', unitPrice: '25.00$', discount: '8%', tax: '2%' },
-        { id: '03', name: 'Sealant guns', quantity: '30pcs', unitPrice: '50.00$', discount: '5%', tax: '3%' },
-        { id: '04', name: 'Heat gun', quantity: '90pcs', unitPrice: '60.00$', discount: '9%', tax: '4%' },
-        { id: '05', name: 'Mixing paddles', quantity: '16pcs', unitPrice: '15.00$', discount: '8%', tax: '2%' }
-    ]);
+    // const [products] = useState([
+    //     { id: '01', name: 'Gas torch', quantity: '60pcs', unitPrice: '40.00$', discount: '6%', tax: '2%' },
+    //     { id: '02', name: 'Scraper\'s', quantity: '40pcs', unitPrice: '25.00$', discount: '8%', tax: '2%' },
+    //     { id: '03', name: 'Sealant guns', quantity: '30pcs', unitPrice: '50.00$', discount: '5%', tax: '3%' },
+    //     { id: '04', name: 'Heat gun', quantity: '90pcs', unitPrice: '60.00$', discount: '9%', tax: '4%' },
+    //     { id: '05', name: 'Mixing paddles', quantity: '16pcs', unitPrice: '15.00$', discount: '8%', tax: '2%' }
+    // ]);
     const [step, setStep] = useState(1);
     const [customerDetails, setCustomerDetails] = useState({
         customerName: "",
@@ -36,8 +36,19 @@ export default function Quotation() {
         phoneNumber: "",
         instruction: "",
     });
-    const [orderSources, setOrderSources] = useState({});
-    const [addProduct, setAddProduct] = useState({});
+    const [orderSources, setOrderSources] = useState({
+        issueDate: "",
+        dueDate: "",
+    });
+    const [addProduct, setAddProduct] = useState({
+        productName : "",
+        unitMeasure : "",
+        quantity : "",
+        unitPrice : "",
+        discount: "",
+        tax : "",
+
+    });
     const [priceSummary, setPriceSummary] = useState({});
 
     // Step functions
@@ -91,19 +102,23 @@ export default function Quotation() {
                 <div className="px-4 py-2.5">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-[22px] ">
                         {/* Form Section  */}
-                        <div className="space-y-4  bg-[#F9F9F9] rounded-lg border border-gray-200 p-4">
+                        <div className="space-y-4  bg-[#F9F9F9] rounded-lg border border-gray-200 p-4  h-[686px]">
                             {/* Action Buttons */}
                             <div className="flex flex-wrap gap-2 ">
-                                <button onClick={() => goToStep(1)} className="px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold ">
+                                <button onClick={() => goToStep(1)} className={`px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold ${step === 1 ? "bg-[#DCEEFF] " : "bg-[#F9F9F9]"
+                                    }`}>
                                     Customer Details
                                 </button>
-                                <button onClick={() => goToStep(2)} className="px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold">
+                                <button onClick={() => goToStep(2)} className={`px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold ${step === 2 ? "bg-[#DCEEFF] " : "bg-[#F9F9F9]"
+                                    }`}>
                                     Order Sources
                                 </button>
-                                <button onClick={() => goToStep(3)} className="px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold">
+                                <button onClick={() => goToStep(3)} className={`px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold ${step === 3 ? "bg-[#DCEEFF] " : "bg-[#F9F9F9]"
+                                    }`}>
                                     Add Product
                                 </button>
-                                <button onClick={() => goToStep(4)} className="px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold ">
+                                <button onClick={() => goToStep(4)} className={`px-2 py-2 border-2 border-blue-[#007AFF] hover:bg-[#DCEEFF] cursor-pointer text-[#007AFF] rounded-full text-xs font-bold ${step === 4 ? "bg-[#DCEEFF] " : "bg-[#F9F9F9]"
+                                    }`}>
                                     Price Summary
                                 </button>
                                 <button className="">
@@ -113,9 +128,8 @@ export default function Quotation() {
 
                             {/* Form Fields Grid */}
                             <div className="">
-                                {/* <CustomerDetails customerDetails={customerDetails} setCustomerDetails={setCustomerDetails} /> */}
-                                {/* RENDERING BASED ON STEP */}
-                                {step === 1 && (
+
+                               {step === 1 && (
                                     <CustomerDetails
                                         customerDetails={customerDetails}
                                         setCustomerDetails={setCustomerDetails}
@@ -125,8 +139,8 @@ export default function Quotation() {
 
                                 {step === 2 && (
                                     <OrderSources
-                                        orderSource={orderSources}
-                                        setOrderSource={setOrderSources}
+                                        orderSources={orderSources}
+                                        setOrderSources={setOrderSources}
                                         nextStep={nextStep}
                                         prevStep={prevStep}
                                     />
@@ -151,7 +165,7 @@ export default function Quotation() {
                             </div>
 
                             {/* Submit Buttons */}
-                            <div className="grid grid-cols-2 gap-4 mt-92">
+                            <div className={`grid grid-cols-2 gap-4  ${step === 4 ? 'mt-[350px]' : step === 1 || step === 3 ? 'mt-24' : 'mt-10'}`}>
                                 <button onClick={nextStep}
                                     className="w-full py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-950 hover:cursor-pointer">
                                     Submit
@@ -185,10 +199,10 @@ export default function Quotation() {
                                         Invoice Number : <span className="text-sm font-semibold"> INV-04568</span>
                                     </p>
                                     <p className="text-sm font-semibold mb-1">
-                                        Date Issued : <span className="text-sm font-semibold"> Nov 01, 2025</span>
+                                        Date Issued : <span className="text-sm font-semibold">{orderSources?.issueDate}</span>
                                     </p>
                                     <p className="text-sm font-semibold mb-1">
-                                        Due Date : <span className="text-sm font-semibold"> Nov 10, 2025</span>
+                                        Due Date : <span className="text-sm font-semibold">{orderSources?.dueDate}</span>
                                     </p>
                                     <p className="text-sm font-semibold text-gray-900 mt-2">07528</p>
                                 </div>
@@ -234,28 +248,28 @@ export default function Quotation() {
                                 </div>
 
                                 {/* Table Rows */}
-                                {products.map((product) => (
-                                    <div key={product.id} className="grid grid-cols-6 gap-2 mb-1.5 mt-2">
+                                {/* {products.map((product) => ( */}
+                                    <div className="grid grid-cols-6 gap-2 mb-1.5 mt-2">
                                         <div className="text-center">
-                                            <p className="text-xs font-light">{product.id}</p>
+                                            {/* <p className="text-xs font-light">{product.id}</p> */}
                                         </div>
                                         <div className="text-center">
-                                            <p className="text-xs font-light">{product.name}</p>
+                                            <p className="text-xs font-light">{addProduct?.productName}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="text-xs font-light">{product.quantity}</p>
+                                            <p className="text-xs font-light">{addProduct?.quantity}{addProduct?.unitMeasure}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="text-xs font-light">{product.unitPrice}</p>
+                                            <p className="text-xs font-light">{addProduct?.unitPrice}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="text-xs font-light">{product.discount}</p>
+                                            <p className="text-xs font-light">{addProduct?.discount}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="text-xs font-light">{product.tax}</p>
+                                            <p className="text-xs font-light">{addProduct?.tax}</p>
                                         </div>
                                     </div>
-                                ))}
+                                {/* ))} */}
                             </div>
 
                             {/* Totals */}
